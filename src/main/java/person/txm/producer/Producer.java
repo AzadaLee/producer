@@ -12,6 +12,15 @@ public class Producer {
 	@Autowired
 	private AmqpTemplate amqpTemplate;
 	
+	/**
+	 * @param routingKey
+	 * @param msg
+	 * 不选exchange，则默认用direct的类型进行分发，routingKey为queue的名字
+	 */
+	public void directSend (String routingKey, Object msg) {
+		amqpTemplate.convertAndSend(routingKey, msg);
+	}
+	
 	public void topicSend (Object msg) {
 		amqpTemplate.convertAndSend(RabbitmqConifg.EX_NAME_TOPIC, "t.dasdas", msg);
 	}
